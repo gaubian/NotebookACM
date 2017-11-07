@@ -1,0 +1,62 @@
+Paris, Saclay des liENS
+
+Solvers :
+
+Simplex
+2SAT
+GraphCutInference
+MaxBipartiteMatching
+MinCostMaxFlow
+Dinic
+
+String :
+
+KMP
+ZFunction
+Trie
+RabinKarp
+
+Graph :
+
+TopologicalSort
+MinCut
+Kruskal
+SCC
+BCC
+CutVertexBridge
+BellmanFord
+Euler
+FloydWarshall
+
+Data Structures :
+
+UnionFind
+Treap
+SegmentTree
+RankTree
+KDTree
+LCA
+
+Libraries :
+
+Dates
+BigInt
+IO
+BitSet
+LatLong
+
+Numerical :
+
+ReducedRowEchelonForm
+FFT
+Primes
+GaussJordan
+DiscreteLog
+Euclid
+
+Geometry :
+
+Geometry
+ClosestPair
+BiggestRectangle
+ConvexHull
