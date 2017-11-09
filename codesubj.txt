@@ -1,62 +1,68 @@
 Paris, Saclay des liENS
 
-Solvers :
+Template :
 
-Simplex
-2SAT
-GraphCutInference
-MaxBipartiteMatching
-MinCostMaxFlow
-Dinic
+  Skeleton
+
+Optimization :
+
+  Simplex
+  MinCostMaxFlow
+  GraphCutInference
+  MinCut
+  Dinic
+  MaxBipartiteMatching
+  2SAT
 
 String :
 
-KMP
-ZFunction
-Trie
-RabinKarp
+  KMP
+  ZFunction
+  Trie
+  RabinKarp
 
 Graph :
 
-TopologicalSort
-MinCut
-Kruskal
-SCC
-BCC
-CutVertexBridge
-BellmanFord
-Euler
-FloydWarshall
+  TopologicalSort
+  Kruskal
+  SCC
+  BCC
+  CutVertexBridge
+  BellmanFord
+  Euler
+  FloydWarshall
 
 Data Structures :
 
-UnionFind
-Treap
-SegmentTree
-RankTree
-KDTree
-LCA
+  UnionFind
+  Treap
+  SegmentTree
+  RankTree
+  KDTree
+  LCA
 
 Libraries :
-
-Dates
-BigInt
-IO
-BitSet
-LatLong
+ IO
+ BitSet
+ Dates
+ LatLong
+ BigInt
 
 Numerical :
-
-ReducedRowEchelonForm
-FFT
-Primes
-GaussJordan
-DiscreteLog
-Euclid
+ ReducedRowEchelonForm
+ GaussJordan
+ FFT
+ Primes
+ Euclid
+ DiscreteLog
 
 Geometry :
 
-Geometry
-ClosestPair
-BiggestRectangle
-ConvexHull
+  Geometry
+  ClosestPair
+  BiggestRectangle
+  ConvexHull
+
+Tips :
+
+  Tips

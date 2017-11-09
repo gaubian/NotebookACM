@@ -54,3 +54,13 @@ list<type> l;
 // suppression des elements consecutifs satisfant un prédicat l.unique(pred) : pref(a, b) = true si b doit etre supprimé
 // suppression de tous les elements égaux à v : l.remove(v)
 // l.remove_if(pred)
+
+// // Sprague-Grundy
+// Pour une position : perdu => nimber = 0
+// sinon, nimber minimal pas dans les
+// positions suivantes
+// Perdu <=> nimber = 0
+// Sprague-Grundy
+// : nimber(G + G') = nimber(G) xor nimber(G')
+// // Burnside
+// nb_orbites = sum_{g in G}(nb_points_fixes_de_g) / card(G)
