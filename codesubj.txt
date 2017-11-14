@@ -1,4 +1,5 @@
 Paris, Saclay des liENS
+École Normale Supérieure Paris-Saclay
 
 Template :
 
@@ -24,13 +25,11 @@ String :
 Graph :
 
   TopologicalSort
-  Kruskal
   SCC
   BCC
   CutVertexBridge
   BellmanFord
   Euler
-  FloydWarshall
 
 Data Structures :
 

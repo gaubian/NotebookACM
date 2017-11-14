@@ -3,6 +3,8 @@ rename "s/.cpp/.cc/" code/*.cpp;
 rename "s/.cp/.cc/" code/*.cp;
 read p
 echo "\\author{$p}" > olol
+read p
+echo "\\newcommand{\\myschool}{$p}" >> olol
 while read p; do
     echo $p
 done < skeleton >> olol

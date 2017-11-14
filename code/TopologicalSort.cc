@@ -1,12 +1,10 @@
-// This function uses performs a non-recursive topological sort.
+// This function performs a non-recursive topological sort.
 //
 // Running time: O(|V|^2).  If you use adjacency lists (vector<map<int> >),
 //               the running time is reduced to O(|E|).
 //
 //   INPUT:   w[i][j] = 1 if i should come before j, 0 otherwise
-//   OUTPUT:  a permutation of 0,...,n-1 (stored in a vector)
-//            which represents an ordering of the nodes which
-//            is consistent with w
+//   OUTPUT:  a permutation of 0,...,n-1 (stored in a vector) which represents an ordering of the nodes consistent with w
 //
 // If no ordering is possible, false is returned.
 

@@ -1,6 +1,6 @@
 //Find the biconnected component in the undirected graph.
 //It means that, for all (x,y), there are at least two ways from u to y using the different nodes.
-//Remark:  every edge belongs to the one of the bcc.
+//Remark:  every edge belongs to one of the bcc.
 //		   two different bcc may have au most one common node (the cut vertex)
 // 		   
 //For the edge-bcc :

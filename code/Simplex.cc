@@ -82,30 +82,16 @@ struct LPSolver {
 };
 
 int main() {
-
-  const int m = 4;
-  const int n = 3;
-  DOUBLE _A[m][n] = {
+  VVD A = {
     { 6, -1, 0 },
     { -1, -5, 0 },
     { 1, 5, 1 },
     { -1, -5, -1 }
   };
-  DOUBLE _b[m] = { 10, -4, 5, -5 };
-  DOUBLE _c[n] = { 1, -1, 0 };
-
-  VVD A(m);
-  VD b(_b, _b + m);
-  VD c(_c, _c + n);
-  for (int i = 0; i < m; i++) A[i] = VD(_A[i], _A[i] + n);
+  VD b = { 10, -4, 5, -5 };
+  VD c = { 1, -1, 0 };
 
   LPSolver solver(A, b, c);
   VD x;
   DOUBLE value = solver.Solve(x);
-
-  cerr << "VALUE: " << value << endl; // VALUE: 1.29032
-  cerr << "SOLUTION:"; // SOLUTION: 1.74194 0.451613 1
-  for (size_t i = 0; i < x.size(); i++) cerr << " " << x[i];
-  cerr << endl;
-  return 0;
 }
