@@ -8,8 +8,8 @@ bool strong_probable_prime (L n, L a) {
     int s = __builtin_ctz(n-1) ;
     L d = (n-1) >> s ;
     if (ipow (a,d,n) == 1) return true ;
-    for(int i = r ; i < s ; i++)
-	if (ipow (a , d < <r , n ) == n -1) return true ;
+    for(int r = 0 ; r < s ; ++r)
+	if (ipow (a , d << r , n ) == n -1) return true ;
     return false ;
 }
 bool is_prime (L n) {
