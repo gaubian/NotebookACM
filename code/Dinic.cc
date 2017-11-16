@@ -83,16 +83,11 @@ struct Dinic {
   }
 };
 
-// BEGIN CUT
-// The following code solves SPOJ problem #4110: Fast Maximum Flow (FASTFLOW)
-
-int main()
-{
+int main() {
   int N, E;
   scanf("%d%d", &N, &E);
   Dinic dinic(N);
-  for(int i = 0; i < E; i++)
-  {
+  for(int i = 0; i < E; i++) {
     int u, v;
     LL cap;
     scanf("%d%d%lld", &u, &v, &cap);
@@ -102,5 +97,3 @@ int main()
   printf("%lld\n", dinic.MaxFlow(0, N - 1));
   return 0;
 }
-
-// END CUT

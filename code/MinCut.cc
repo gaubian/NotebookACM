@@ -43,7 +43,6 @@ pair<int, VI> GetMinCut(VVI &weights) {
   return make_pair(best_weight, best_cut);
 }
 
-// BEGIN CUT
 // The following code solves UVA problem #10989: Bomb, Divide and Conquer
 int main() {
   int N;
@@ -61,4 +60,3 @@ int main() {
     cout << "Case #" << i+1 << ": " << res.first << endl;
   }
 }
-// END CUT

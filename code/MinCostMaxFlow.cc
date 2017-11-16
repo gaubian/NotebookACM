@@ -70,7 +70,7 @@ struct MinCostMaxFlow {
     L totflow = 0, totcost = 0;
     while (L amt = Dijkstra(s, t)) {
       totflow += amt;
-      for (int x = t; x != s; x = dad[x].first) {
+      for (int x = t; x != s; x = dad[x].first)
         if (dad[x].second == 1) {
           flow[dad[x].first][x] += amt;
           totcost += amt * cost[dad[x].first][x];
@@ -78,14 +78,10 @@ struct MinCostMaxFlow {
           flow[x][dad[x].first] -= amt;
           totcost -= amt * cost[x][dad[x].first];
         }
-      }
     }
     return make_pair(totflow, totcost);
   }
 };
-
-// BEGIN CUT
-// The following code solves UVA problem #10594: Data Flow
 
 int main() {
   int N, M;
@@ -115,5 +111,3 @@ int main() {
   
   return 0;
 }
-
-// END CUT

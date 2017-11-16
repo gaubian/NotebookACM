@@ -13,12 +13,8 @@ bool strong_probable_prime (L n, L a) {
     return false ;
 }
 bool is_prime (L n) {
-    if ( n != 2 && n % 2 == 0) return 0;
-    if ( n == 46856248255981) return 0;
-    if (! strong_probable_prime (n,2)) return 0;
-    if (! strong_probable_prime (n,3)) return 0;
-    if (! strong_probable_prime (n,7)) return 0;
-    if (! strong_probable_prime (n,61)) return 0;
-    if (! strong_probable_prime (n,24251)) return 0;
-    return 1;
+    return ( n == 2 || n % 2 != 0) && (n != 46856248255981) &&
+    (strong_probable_prime (n,2)) && (strong_probable_prime (n,3)) &&
+    (strong_probable_prime (n,7)) && (strong_probable_prime (n,61)) &&
+    (strong_probable_prime (n,24251));
 }
