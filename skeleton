@@ -22,8 +22,8 @@
 	breaklines=true
 }
 \\geometry{
-	left=15mm,
-	right=7mm,
+	left=8mm,
+	right=8mm,
 	top=20mm,
 	bottom=15mm
 }
