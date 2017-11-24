@@ -21,6 +21,7 @@ String :
   KMP
   ZFunction
   Trie
+  ACAutomaton
   RabinKarp
 
 Graph :

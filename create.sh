@@ -12,7 +12,10 @@ while read p; do
     if [ -z $p ]
     then continue
     fi
-    if [[ $p == *":" ]];
+    if [[ $p == "Math"* ]]
+    then 
+        echo "\\newpage \\section{"${p%:}"}"
+    else if [[ $p == *":" ]];
     then
         echo "\\section{"${p%:}"}"
     else
@@ -22,6 +25,7 @@ while read p; do
 	else
 	    echo "\\subsection{"$p"}{\\scriptsize\\lstinputlisting{code/"$p".cc}}"
 	fi
+    fi
     fi
 done >> olol
 echo "\\end{multicols}

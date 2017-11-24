@@ -1,65 +1,76 @@
-// How many Pi are in T ?
-// COMPLEXITY: linear
-// USAGE: call init, insert to create dictionnary (strings are copied), and query
-const int MAXN = 500010;
-const int Alphabet = 26;
-struct Trie {
-  int next[MAXN][Alphabet],fail[MAXN],end[MAXN];
-  int root, L;
-  int newnode() {
-    for (int i=0; i<Alphabet; i++) next[L][i] = -1;
-    end[L++] = 0;
-    return L-1;
-  }
-  void init() {
-    L=0;
-    root = newnode();
-  }
-  void insert(const char buf[]) {
-    int len = strlen(buf);
-    int now = root;
-    for (int i = 0; i < len; i++) {
-      if (next[now][buf[i] - 'a'] == -1)
-        next[now][buf[i] - 'a'] = newnode();
-        now = next[now][buf[i] - 'a'];
-    }
-    end[now]++;
-  }
-  void build() {
-    queue<int> Q;
-    fail[root] = root;
-    for (int i = 0; i < Alphabet; i++)
-      if (next[root][i] == -1)
-        next[root][i] = root;
-      else {
-        fail[next[root][i]] = root;
-        Q.push(next[root][i]);
-      }
-  while(!Q.empty()) {
-    int now = Q.front();
-    Q.pop();
-    for (int i = 0; i < Alphabet; i++)
-      if (next[now][i] == -1)
-        next[now][i] = next[fail[now]][i];
-      else {
-        fail[next[now][i]] = next[fail[now]][i];
-        Q.push(next[now][i]);
-      }
-    }
-  }
-  int query(const char buf[]) {
-    int len = strlen(buf);
-    int now = root;
-    int res = 0;
-    for (int i = 0; i < len; i++) {
-      now = next[now][buf[i] - 'a'];
-      int temp = now;
-      while (temp != root) {
-        res += end[temp];
-        end[temp] = 0;
-        temp = fail[temp];
-      }
-    }
-    return res;
+#include <bits/stdc++.h>
+using namespace std;
+
+int next_id = 0;
+
+struct Node {
+  Node *suff;
+  Node *next[256];
+  vector<int> pats;
+  vector<char> out;
+  int id; /* for debugging only */
+
+  Node() {
+    id = next_id++;
+    suff = 0;
+    for(int i = 0; i < 256; i++) next[i] = 0;
   }
 };
+
+class AhoCorasick {
+  Node *trie;
+
+  Node *suffix(Node *x, char c) {
+    while(x->next[c] == 0) x = x->suff;
+    return x->next[c];
+  }
+
+  void insert(Node *x, string s, int id) {
+    for(int i = 0; i < s.size(); i++) {
+      if(x->next[s[i]] == 0) {
+        x->next[s[i]] = new Node;
+        x->out.push_back(s[i]);
+      }
+      x = x->next[s[i]];
+    }
+    x->pats.push_back(id);
+  }
+
+  public:
+    AhoCorasick(vector<string> &p) {
+      trie = new Node;
+      for(int i = 0; i < p.size(); i++) insert(trie, p[i], i);
+      queue<Node *> q;
+      for(int i = 0; i < 256; i++) {
+         if(trie->next[i]) {
+           trie->next[i]->suff = trie;
+           q.push(trie->next[i]);
+         }
+         else trie->next[i] = trie;
+      }
+      while(q.empty() == 0) {
+        Node *x = q.front(); q.pop();
+        for(int i = 0; i < x->out.size(); i++) {
+          Node *y = x->next[x->out[i]];
+          y->suff = suffix(x->suff, x->out[i]);
+          y->pats.insert(y->pats.end(), y->suff->pats.begin(), y->suff->pats.end());
+          q.push(y);
+        }
+      }
+    }
+
+    vector<int> match(string s) {
+      Node *x = trie;
+      int cnt = 0;
+      for(int i = 0; i < s.size(); i++) x = suffix(x, s[i]);
+      return x->pats;
+            //x->pats contains id's of matched patterns
+    }
+};
+
+int main() {
+  vector<string> tab = {"lol","cou","coucoucou","yolo","lo"};
+  AhoCorasick A(tab);
+  vector<int> patterns = A.match("coucoucoulolyolo");
+  for(int i :  patterns) cout << i << endl; // 3 4
+}
