@@ -29,6 +29,7 @@ Graph :
   SCC
   BCC
   CutVertexBridge
+  Dijkstra
   BellmanFord
   Euler
 
@@ -46,7 +47,6 @@ Libraries :
  BitSet
  Dates
  LatLong
- BigInt
 
 Numerical :
  ReducedRowEchelonForm
