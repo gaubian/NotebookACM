@@ -66,3 +66,8 @@ Geometry :
 Tips :
 
   Tips
+
+Maths :
+  page1#
+  page2#
+  page3#

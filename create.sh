@@ -16,7 +16,12 @@ while read p; do
     then
         echo "\\section{"${p%:}"}"
     else
-        echo "\\subsection{"$p"}{\\scriptsize\\lstinputlisting{code/"$p".cc}}"
+	if [[ $p == *"#" ]];
+	then
+	    echo "\\includegraphics[scale=0.9]{math/"${p%#}".png}\\newpage"
+	else
+	    echo "\\subsection{"$p"}{\\scriptsize\\lstinputlisting{code/"$p".cc}}"
+	fi
     fi
 done >> olol
 echo "\\end{multicols}
