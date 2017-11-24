@@ -13,6 +13,7 @@ Optimization :
   MinCut
   Dinic
   MaxBipartiteMatching
+  VertexCover
   2SAT
 
 String :

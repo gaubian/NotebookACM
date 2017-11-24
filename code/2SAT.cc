@@ -1,8 +1,3 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-using VI = vector<int>;
-
 const int maxn = 1000;
 
 struct TwoSAT {
