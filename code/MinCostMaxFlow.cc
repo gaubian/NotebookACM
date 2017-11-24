@@ -32,7 +32,11 @@ struct MinCostMaxFlow {
     this->cap[from][to] = cap;
     this->cost[from][to] = cost;
   }
-  
+ 
+  L getFlow(int from, int to) {
+     return max(0LL,this->flow[from][to]);
+  }
+
   void Relax(int s, int k, L cap, L cost, int dir) {
     L val = dist[s] + pi[s] - pi[k] + cost;
     if (cap && val < dist[k]) {
@@ -102,12 +106,9 @@ int main() {
     
     pair<L, L> res = mcmf.GetMaxFlow(0, N);
 
-    if (res.first == D) {
-      printf("%Ld\n", res.second);
-    } else {
-      printf("Impossible.\n");
-    }
+    cout << mcmf.getFlow(3,2) << endl;
+
+    if (res.first == D) printf("%Ld\n", res.second);
+    else printf("Impossible.\n");
   }
-  
-  return 0;
 }

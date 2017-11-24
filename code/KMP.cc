@@ -2,6 +2,7 @@
 Finds all occurrences of the pattern string p within the
 text string t. Running time is O(n + m), where n and m
 are the lengths of p and t, respecitvely.
+Pi("coucoucou") = {-1,-1,-1,0,1,2,3,4,5}
 */
 
 void buildPi(string& p, VI& pi) {
