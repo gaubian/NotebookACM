@@ -15,6 +15,7 @@ Optimization :
   MaxBipartiteMatching
   VertexCover
   2SAT
+  2SATwithAssignment
   GoldenSearch
 
 String :
