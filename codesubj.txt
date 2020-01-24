@@ -41,6 +41,7 @@ Data Structures :
   UnionFind
   Treap
   SegmentTree
+  SegmentTreePersistent
   KDTree
   LCA
 
