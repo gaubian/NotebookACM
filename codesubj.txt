@@ -7,7 +7,7 @@ Template :
 
 Optimization :
 
-  Simplex
+  StableMatchings
   MinCostMaxFlow
   GraphCutInference
   MinCut
@@ -40,14 +40,12 @@ Data Structures :
   UnionFind
   Treap
   SegmentTree
-  RankTree
   KDTree
   LCA
 
 Libraries :
  IO
  BitSet
- Dates
  LatLong
 
 Numerical :
