@@ -28,6 +28,7 @@ String :
 
 Graph :
 
+  Centroid
   TopologicalSort
   SCC
   BCC
