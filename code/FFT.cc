@@ -1,95 +1,81 @@
-// Convolution using the fast Fourier transform (FFT).
-//
-// INPUT:
-//     a[1...n]
-//     b[1...m]
-//
-// OUTPUT:
-//     c[1...n+m-1] such that c[k] = sum_{i=0}^k a[i] b[k-i]
-//
-// Alternatively, you can use the DFT() routine directly, which will
-// zero-pad your input to the next largest power of 2 and compute the
-// DFT or inverse DFT.
-typedef long double DOUBLE;
-typedef complex<DOUBLE> COMPLEX;
-typedef vector<DOUBLE> VD;
-typedef vector<COMPLEX> VC;
-
-struct FFT {
-  VC A;
-  int n, L;
-
-  int ReverseBits(int k) {
-    int ret = 0;
-    for (int i = 0; i < L; i++) {
-      ret = (ret << 1) | (k & 1);
-      k >>= 1;
-    }
-    return ret;
-  }
-
-  void BitReverseCopy(VC a) {
-    for (n = 1, L = 0; n < a.size(); n <<= 1, L++) ;
-    A.resize(n);
-    for (int k = 0; k < n; k++) 
-      A[ReverseBits(k)] = a[k];
-  }
-  
-  VC DFT(VC a, bool inverse) {
-    BitReverseCopy(a);
-    for (int s = 1; s <= L; s++) {
-      int m = 1 << s;
-      COMPLEX wm = exp(COMPLEX(0, 2.0 * M_PI / m));
-      if (inverse) wm = COMPLEX(1, 0) / wm;
-      for (int k = 0; k < n; k += m) {
-	COMPLEX w = 1;
-	for (int j = 0; j < m/2; j++) {
-	  COMPLEX t = w * A[k + j + m/2];
-	  COMPLEX u = A[k + j];
-	  A[k + j] = u + t;
-	  A[k + j + m/2] = u - t;
-	  w = w * wm;
+typedef long long LL;
+typedef double flt;
+typedef pair<int, int> PII;
+ 
+namespace FFT {
+	struct Complex {
+		flt x, y;
+		Complex() {}
+		Complex(flt x, flt y): x(x), y(y) {}
+		Complex operator + (const Complex &r) const {
+			return Complex(x + r.x, y + r.y);
+		}
+		Complex operator - (const Complex &r) const {
+			return Complex(x - r.x, y - r.y);
+		}
+		Complex operator * (const Complex &r) const {
+			return Complex(x * r.x - y * r.y, x * r.y + y * r.x);
+		}
+		Complex& operator /= (const flt &r) {
+			x /= r; y /= r; return *this;
+		}
+	};
+	static const int W = 1 << 20;
+	static const flt PI = acos(-1.0);
+	static Complex pw[W], ipw[W];
+	static void init() {
+		for (int i = 0; i < W; ++ i) {
+			flt x = i * 2 * PI / W;
+			pw[i] = Complex(cos(x), sin(x));
+			ipw[i] = Complex(cos(-x), sin(-x));
+		}
 	}
-      }
-    }
-    if (inverse) for (int i = 0; i < n; i++) A[i] /= n;
-    return A;
-  }
-
-  // c[k] = sum_{i=0}^k a[i] b[k-i]
-  VD Convolution(VD a, VD b) {
-    int L = 1;
-    while ((1 << L) < a.size()) L++;
-    while ((1 << L) < b.size()) L++;
-    int n = 1 << (L+1);
-
-    VC aa, bb;
-    for (size_t i = 0; i < n; i++) aa.push_back(i < a.size() ? COMPLEX(a[i], 0) : 0);
-    for (size_t i = 0; i < n; i++) bb.push_back(i < b.size() ? COMPLEX(b[i], 0) : 0);
-    
-    VC AA = DFT(aa, false);
-    VC BB = DFT(bb, false);
-    VC CC;
-    for (size_t i = 0; i < AA.size(); i++) CC.push_back(AA[i] * BB[i]);
-    VC cc = DFT(CC, true);
-
-    VD c;
-    for (int i = 0; i < a.size() + b.size() - 1; i++) c.push_back(cc[i].real());
-    return c;
-  }
-
-};
-
+	static void fft(Complex *f, int n, bool inv) {
+		for (int i = 1, j = 0; i < n; ++ i) {
+			int bit = n >> 1;
+			while (j >= bit) j -= bit, bit >>= 1;
+			j += bit; if (i < j) swap(f[i], f[j]);
+		}
+		for (int len = 2, s = W >> 1; len <= n; len <<= 1, s >>= 1) {
+			int len2 = len >> 1;
+			for (int i = 0; i < n; i += len) {
+				for (int j = 0; j < len2; ++ j) {
+					Complex u = f[i + j];
+					Complex v = f[i + j + len2] * (inv ? ipw[j * s] : pw[j * s]);
+					f[i + j] = u + v; f[i + j + len2] = u - v;
+				}
+			}
+		}
+		if (inv) {
+			for (int i = 0; i < n; ++ i) f[i] /= n;
+		}
+	}
+}
+const int MAXN = 200000 + 10;
+ 
+FFT::Complex u[FFT::W];
+ 
 int main() {
-  double a[] = {1, 3, 4, 5, 7};
-  double b[] = {2, 4, 6};
-
-  FFT fft;
-  VD c = fft.Convolution(VD(a, a + 5), VD(b, b + 3));
-
-  // expected output: 2 10 26 44 58 58 42
-  for (int i = 0; i < c.size(); i++) cerr << c[i] << " ";
-  cerr << endl;
-  
-  return 0;
+	int n, m;
+	FFT::init();
+	while (scanf("%d", &n) == 1) {
+		int s = 1 << 19;
+		for (int i = 0; i < s; ++ i) {
+			u[i].x = u[i].y = 0;
+		}
+		for (int i = 0; i < n; ++ i) {
+			int x; scanf("%d", &x);
+			u[x].x = 1;
+		}
+		u[0].x = 1;
+		FFT::fft(u, s, 0);
+		for (int i = 0; i < s; ++ i) u[i] = u[i] * u[i];
+		FFT::fft(u, s, 1);
+		scanf("%d", &m); n = 0;
+		for (int i = 0; i < m; ++ i) {
+			int x; scanf("%d", &x);
+			if ((int)(u[x].x + 0.5)) ++ n;
+		}
+		printf("%d\n", n);
+	}
 }
